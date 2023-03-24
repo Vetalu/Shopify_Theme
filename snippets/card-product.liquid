@@ -31,6 +31,22 @@
     if ratio == 0 or ratio == null
       assign ratio = 1
     endif
+    if use_variant
+      assign target = product.selected_or_first_available_variant
+    else
+      assign target = product
+    endif
+
+    assign price = target.price | default: 1999
+    assign money_price = price | money
+    if settings.currency_code_enabled
+      assign money_price = price | money
+    endif
+
+    if target == product and product.price_varies
+      assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+    endif
+
   -%}
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
@@ -220,9 +236,8 @@
                   data-product-url="{{ card_product.url }}"
                 >
                 {% if card_product.available %}
-                {{ 'products.product.add_to_cart' | t }}
-
-                 
+                {% comment %} Added price to add button on main page in section {% endcomment %}
+                {{ 'products.product.add_to_cart' | t }} {{ money_price }}
                 {% endif %}
                   {%- if horizontal_quick_add -%}
                     <span class="icon-wrap">{% render 'icon-arrow' %}</span>
