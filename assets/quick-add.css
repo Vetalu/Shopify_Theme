@@ -1,4 +1,6 @@
 .quick-add {
+  display: flex;
+  justify-content: center;
   position: relative;
   grid-row-start: 4;
   margin: 0 0 1rem;
@@ -206,8 +208,19 @@ quick-add-modal .product-form__buttons {
 
 .quick-add__submit {
   padding: 0.8rem;
-  min-width: 100%;
   box-sizing: border-box;
+  background-color: #464B90;
+  color: #FFFFFF;
+  height: 62px; 
+  max-width: 285px;
+  min-width: 285px;
+  border-radius: 40px;
+  border: 1px solid #464B90;
+}
+
+.modal_flex-button{
+  display: flex;
+  justify-content: center
 }
 
 quick-add-modal .product-media-container.constrain-height {

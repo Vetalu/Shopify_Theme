@@ -225,7 +225,7 @@
               endif
             -%}
             {%- if card_product.variants.size > 1 or qty_rules -%}
-              <modal-opener data-modal="#QuickAdd-{{ card_product.id }}">
+              <modal-opener class="modal_flex-button" data-modal="#QuickAdd-{{ card_product.id }}">
                 <button
                   id="{{ product_form_id }}-submit"
                   type="submit"
@@ -304,9 +304,9 @@
                   >
                     <span>
                       {%- if card_product.selected_or_first_available_variant.available -%}
-                        {{ 'products.product.add_to_cart' | t }}
+                        {{ 'products.product.add_to_cart' | t }} {{ money_price }}
                       {%- else -%}
-                        {{ 'products.product.sold_out' | t }}
+                        {{ 'products.product.sold_out' | t }} {{ money_price }}
                       {%- endif -%}
                     </span>
                     <span class="sold-out-message hidden">

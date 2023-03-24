@@ -273,11 +273,16 @@ fieldset.product-form__input .form__label {
 }
 
 .product-form__input .select {
-  max-width: 25rem;
+  max-width: 100px;
+  height: 40px;
+  border-radius: 30px;
+  align-items: center;
 }
 
 .product-form__submit {
   margin-bottom: 1rem;
+  background-color: #464B90;
+  color: #FFFFFF;
 }
 
 .no-js .product-form__submit.button--secondary {
