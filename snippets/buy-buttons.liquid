@@ -80,9 +80,10 @@
           >
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }} 
+                {% comment %}Unfinished logic for button and price {% endcomment %}
+                {{ 'products.product.sold_out' | t }} {{ money_price }}
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }} 
+                {{ 'products.product.add_to_cart' | t }} {{ money_price }}
               {%- endif -%}
             </span>
             <div class="loading-overlay__spinner hidden">
@@ -96,8 +97,7 @@
                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
               </svg>
             </div>
-            {% comment %}Unfinished logic for button and price {% endcomment %}
-            {{ money_price }}
+            
           </button>
           {%- if block.settings.show_dynamic_checkout -%}
             {{ form | payment_button }}
