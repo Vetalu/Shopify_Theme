@@ -51,6 +51,23 @@
             if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
               assign quantity_rule_soldout = true
             endif
+
+            if use_variant
+              assign target = product.selected_or_first_available_variant
+            else
+              assign target = product
+            endif
+
+            
+            assign price = target.price | default: 1999
+            assign money_price = price | money
+            if settings.currency_code_enabled
+              assign money_price = price | money
+            endif
+
+            if target == product and product.price_varies
+              assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+            endif
           -%}
           <button
             id = "ProductSubmitButton-{{ section_id }}"
@@ -63,9 +80,9 @@
           >
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }}
+                {{ 'products.product.sold_out' | t }} 
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
+                {{ 'products.product.add_to_cart' | t }} 
               {%- endif -%}
             </span>
             <div class="loading-overlay__spinner hidden">
@@ -79,6 +96,8 @@
                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
               </svg>
             </div>
+            {% comment %}Unfinished logic for button and price {% endcomment %}
+            {{ money_price }}
           </button>
           {%- if block.settings.show_dynamic_checkout -%}
             {{ form | payment_button }}
